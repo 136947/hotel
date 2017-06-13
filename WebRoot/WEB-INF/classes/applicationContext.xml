@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    		xmlns:context="http://www.springframework.org/schema/context"
+    		xmlns:jee="http://www.springframework.org/schema/jee"
+    		xmlns:aop="http://www.springframework.org/schema/aop" 
+			xmlns:tx="http://www.springframework.org/schema/tx"
+   		 	xmlns:mvc="http://www.springframework.org/schema/mvc"
+   		 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+        	http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.2.xsd
+        	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+        	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd 
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+	
+		<bean id="loginImp" class="com.hotel.interfaceimp.LoginImp">
+		<property name="hibernateUtil" ref="hibernateUtilsImp" ></property>
+	</bean>
+	
+	<bean id="loginAction" class="com.hotel.actions.LoginAction">
+		<property name="loginInter" ref="loginImp"></property>
+	</bean>
+	
+		<bean id="RoomWatchImp" class="com.hotel.interfaceimp.RoomWatchImp">
+		<property name="hibernateUtil" ref="hibernateUtilsImp"></property>
+	</bean>
+	<bean id="roomWatchAction" class="com.hotel.actions.RoomWatchAction">
+		<property name="roomWatchInter" ref="RoomWatchImp"></property>
+	</bean>
+	<bean id="leaveImp" class="com.hotel.interfaceimp.LeaveImp">
+		<property name="hibernateUtil" ref="hibernateUtilsImp"></property>
+	</bean>
+	
+	<bean id="leave" class="com.hotel.actions.LeaveAction">
+		<property name="leaveInter" ref="leaveImp"></property>
+		<property name="economicInter" ref="economicImp"></property>
+	</bean>
+	
+	<bean id="customerSelectImp" class="com.hotel.interfaceimp.CustomerSelectImp">
+		<property name="hibernateUtil" ref="hibernateUtilsImp"></property>
+	</bean>
+	
+	<bean id="customer" class="com.hotel.actions.CustomerAction">
+		<property name="customerSelectInter" ref="customerSelectImp"></property>
+	</bean>
+	
+	<bean id="economicImp" class="com.hotel.interfaceimp.EconomicImp">
+	<property name="hibernateUtil" ref="hibernateUtilsImp"></property>
+	</bean>
+	<bean id="economic" class="com.hotel.actions.Economic">
+		<property name="economicInter" ref="economicImp"></property>
+		<property name="hibernateUtil" ref="hibernateUtilsImp"></property>
+	</bean>
+	<bean id="passwordAction" class="com.hotel.actions.passwordAction">
+		<property name="changePasswordInter" ref="changePasswordImp"></property>
+	</bean>
+	
+	<bean id="changePasswordImp" class="com.hotel.interfaceimp.ChangePasswordImp">
+		<property name="hibernateUtil" ref="hibernateUtilsImp"></property>
+	</bean>
+	
+	
+	<bean id="liveImp" class="com.hotel.interfaceimp.LiveImp">
+	   <property name="hibernateUtil" ref="hibernateUtilsImp"></property>
+	</bean>
+	<bean id="LiveAction" class="com.hotel.actions.LiveAction">
+	     <property name="livefor" ref="liveImp"></property>
+	</bean>
+	
+	<bean id="ChartAction" class="com.hotel.actions.ChartAction">
+	     <property name="romaint" ref="RoMaimp"></property>
+	</bean>
+	
+	<bean id="CountAction" class="com.hotel.actions.CountAction">
+	     <property name="romaint" ref="RoMaimp"></property>
+	</bean>
+	
+	
+	<bean id="modifyimp" class="com.hotel.interfaceimp.modifyImp">
+	      <property name="hibernateUtil" ref="hibernateUtilsImp"></property>
+	</bean>
+	<bean id="PriceAction" class="com.hotel.actions.PriceAction">
+	    <property name="modifyint" ref="modifyimp"></property>
+	</bean>
+	
+	
+	<bean id="RoMaimp"  class="com.hotel.interfaceimp.RoMaImp">
+	    <property name="hibernateUtil" ref="hibernateUtilsImp"></property>
+	</bean>
+	<bean id="RoomAction" class="com.hotel.actions.RoomAction">
+	    <property name="romaint" ref="RoMaimp"></property>
+	</bean>
+	
+	
+	<bean id="hibernateUtilsImp" class="com.hotel.interfaceimp.HibernateUtilsImp">
+	     <property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName"
+			value="com.mysql.jdbc.Driver">
+		</property>
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/hotel?characterEncoding=utf8">
+		</property>
+		<property name="username" value="root"></property>
+		<property name="password" value="huye123456789"></property>
+			<!-- 连接池启动的初始值 -->
+		<property name="initialSize" value="3" />
+		<!-- 连接池的最大值 -->
+		<property name="maxActive" value="500" />
+		<!-- 最大空闲值，当经过一个高峰时间后，连接池可以慢慢将用不到的连接释放一部分 -->
+		<property name="maxIdle" value="2" />
+		<!-- 最小空闲数，当空闲的连接数少于阈值时，连接池会申请去一些连接 -->
+		<property name="minIdle" value="1" />
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="show_sql">true</prop>
+				<prop key="format_sql">true</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>com/hotel/domain/Stuff.hbm.xml</value>
+				<value>com/hotel/domain/Customer.hbm.xml</value>
+				<value>com/hotel/domain/Live.hbm.xml</value>
+				<value>com/hotel/domain/Room.hbm.xml</value>
+				<value>com/hotel/domain/Roomprice.hbm.xml</value>
+				<value>com/hotel/domain/Roomtype.hbm.xml</value>
+				<value>com/hotel/domain/Reserve.hbm.xml</value>
+				<value>com/hotel/domain/Student.hbm.xml</value>
+				<value>com/hotel/domain/Cost.hbm.xml</value></list>
+		</property></bean>
+	<!-- 配置事物管理器,统一管理SessionFactory事物，因此，其他地方可不用去另外写事物 -->
+	<bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>	
+	<!-- 启用事物注解 -->
+	 <tx:annotation-driven transaction-manager="txManager" />
+	</beans>

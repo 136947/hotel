@@ -1,0 +1,24 @@
+.button {
+	cursor:pointer;
+	width:25%;
+	border:none;
+	background:#0CF;
+	color:#FFF;
+	margin:0 0 5px;
+	padding:10px;
+	font-size:15px;
+}
+.button:hover{
+	width:27%;
+	 
+}
+/* .btn{
+	cursor:pointer;
+	width:100px;;
+	border:none;
+	background:#0CF;
+	color:#FFF;
+	margin:0 0 5px;
+	padding:10px;
+	font-size:15px;
+} */

@@ -1,0 +1,11 @@
+$(function(){
+	$('#dateset1').datepicker({
+		changeMonth:true,
+		changeYear:true,
+		maxDate:null,
+		dateFormat:"yy-mm-dd",
+		yearRange:'1950:2017',
+		showOtherMonths:true,
+		selectOtherMonths:true,
+	});
+})

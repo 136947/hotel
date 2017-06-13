@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+<!-- struts标签格式转化为html格式 -->
+	<constant name="struts.ui.theme" value="simple" /> 
+	<constant name="struts.ui.templateDir" value="template" /> 
+	<constant name="struts.ui.templateSuffix" value="ftl" />
+	
+	<package name="actions" namespace="/actions" extends="struts-default,json-default">
+		<action name="economic_*" class="economic" method="{1}">
+			<result name="book">/assistant/economic.jsp</result>
+			<result>/assistant/economic.jsp</result>
+		</action>
+		
+		<action name="customerAction_*" class="customer" method="{1}">
+			<result name="customer">/assistant/customer.jsp</result>
+			<result name="change">/assistant/customer.jsp</result>
+			<result name="manage">/manage/customer.jsp</result>
+			<result name="manage1">/manage/customer.jsp</result>
+		</action>
+		
+		<action name="leaveAction_*" class="leave" method="{1}">
+			<result type="json" name="leave">
+				<param name="root">change</param>
+			</result>
+			<result name="success1">/assistant/leave.jsp</result>
+			<result name="pay">/assistant/leave.jsp</result>
+		</action>
+		
+		<action name="LiveAction_*" class="LiveAction" method="{1}">
+			<result name="success">/assistant/live.jsp</result>
+			<result name="inser">/assistant/customer.jsp</result>
+		</action>
+		<action name="PriceAction_*" class="PriceAction" method="{1}">
+		    <result>/manage/price.jsp</result>
+		</action>
+		<action name="RoomAction_*" class="RoomAction" method="{1}">
+		    <result>/manage/roomManage.jsp</result>
+		</action>
+		<action name="passwordAction_*" class="passwordAction" method="{1}">
+			<result>/assistant/information.jsp</result>
+			<result name="success1">/manage/information.jsp</result>
+		</action>
+		<action name="roomWatchAction_*" class="roomWatchAction" method="{1}">
+			<result>/assistant/roomwatch1.jsp</result>
+			<result name="success1">/manage/roomwatch1.jsp</result>
+		</action>
+		<action name="loginAction_*" class="loginAction" method="{1}">
+			<result name="manage">/manage/main.jsp</result>
+			<result name="assistant">/assistant/index.jsp</result>
+			<result>/assistant/login.jsp</result>
+		</action>
+		
+	</package>
+	<package name="json" namespace="/jsonAjax" extends="struts-default,json-default">
+	      <action name="ChartAction_*" class="ChartAction" method="{1}">
+		  <result type="json">
+		       <param name="root">result</param>
+		  </result>
+		</action>
+		<action name="CountAction_*" class="CountAction" method="{1}">
+		  <result type="json">
+		       <param name="root">result2</param>
+		  </result>
+		</action>
+	</package>
+</struts>    
